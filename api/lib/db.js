@@ -20,6 +20,8 @@ export async function connectToDatabase() {
       maxPoolSize: 1,
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 30000,
+      tls: true,
+      tlsAllowInvalidCertificates: true,
     });
     
     await client.connect();
@@ -31,6 +33,9 @@ export async function connectToDatabase() {
     return { client, db };
   } catch (error) {
     console.error('MongoDB connection error:', error.message);
+    console.error('Full error details:', error);
+    console.error('MONGODB_URI present:', !!MONGODB_URI);
+    console.error('MONGODB_URI length:', MONGODB_URI?.length || 0);
     throw new Error('Database connection failed');
   }
 }
