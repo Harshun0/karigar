@@ -11,18 +11,22 @@ let cachedClient = null;
 let cachedDb = null;
 
 export async function connectToDatabase() {
+  // Return cached connection if available
   if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb };
+    try {
+      // Verify the connection is still alive
+      await cachedClient.db().admin().ping();
+      return { client: cachedClient, db: cachedDb };
+    } catch (error) {
+      // Connection is stale, reset cache
+      cachedClient = null;
+      cachedDb = null;
+    }
   }
 
   try {
-    const client = new MongoClient(MONGODB_URI, {
-      maxPoolSize: 1,
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 30000,
-      tls: true,
-      tlsAllowInvalidCertificates: true,
-    });
+    // Create new client with minimal options
+    const client = new MongoClient(MONGODB_URI);
     
     await client.connect();
     const db = client.db(DB_NAME);
@@ -32,11 +36,8 @@ export async function connectToDatabase() {
 
     return { client, db };
   } catch (error) {
-    console.error('MongoDB connection error:', error.message);
-    console.error('Full error details:', error);
-    console.error('MONGODB_URI present:', !!MONGODB_URI);
-    console.error('MONGODB_URI length:', MONGODB_URI?.length || 0);
-    throw new Error('Database connection failed');
+    console.error('MongoDB connection error:', error);
+    throw new Error('Database connection failed: ' + error.message);
   }
 }
 
