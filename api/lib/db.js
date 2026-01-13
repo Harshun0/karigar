@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from 'mongodb';
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://karigarcustomercare_db_user:Z9sPXUkvoNbNppyA@cluster0.pmgt5l5.mongodb.net/kaarigar?ssl=true&retryWrites=false&w=majority';
+const MONGODB_URI = process.env.MONGODB_URI;
 const DB_NAME = 'kaarigar';
 
 if (!MONGODB_URI) {
@@ -17,18 +17,9 @@ export async function connectToDatabase() {
 
   try {
     const client = new MongoClient(MONGODB_URI, {
-      ssl: true,
-      tls: true,
-      tlsAllowInvalidCertificates: false,
-      tlsAllowInvalidHostnames: false,
       maxPoolSize: 1,
-      minPoolSize: 0,
-      maxIdleTimeMS: 30000,
-      serverSelectionTimeoutMS: 10000,
-      socketTimeoutMS: 45000,
-      connectTimeoutMS: 10000,
-      retryWrites: false,
-      readPreference: 'primary',
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 30000,
     });
     
     await client.connect();
@@ -39,19 +30,8 @@ export async function connectToDatabase() {
 
     return { client, db };
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-    
-    if (cachedClient) {
-      try {
-        await cachedClient.close();
-      } catch (closeError) {
-        console.error('Error closing MongoDB connection:', closeError);
-      }
-      cachedClient = null;
-      cachedDb = null;
-    }
-    
-    throw error;
+    console.error('MongoDB connection error:', error.message);
+    throw new Error('Database connection failed');
   }
 }
 
