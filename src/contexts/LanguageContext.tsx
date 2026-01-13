@@ -1,0 +1,401 @@
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+
+type Language = "en" | "hi";
+
+interface LanguageContextType {
+  language: Language;
+  toggleLanguage: () => void;
+  t: (key: string) => string;
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+const translations: Record<Language, Record<string, string>> = {
+  en: {
+    // Header
+    "nav.services": "Services",
+    "nav.howItWorks": "How It Works",
+    "nav.forWorkers": "For Workers",
+    "header.login": "Log In",
+    "header.getStarted": "Get Started",
+    "header.logout": "Logout",
+    "header.profile": "Profile",
+    
+    // Hero
+    "hero.badge": "Trusted by 10,000+ households",
+    "hero.title": "Connect with Skilled",
+    "hero.titleHighlight": "Local Workers",
+    "hero.titleEnd": "Near You",
+    "hero.subtitle": "Find verified carpenters, plumbers, electricians, and more in your neighborhood. Book trusted professionals with a single tap.",
+    "hero.locationPlaceholder": "Enter your location...",
+    "hero.findWorkers": "Find Workers",
+    "hero.searching": "Searching...",
+    "hero.verified": "Verified Workers",
+    "hero.fairPricing": "Fair Pricing",
+    "hero.quickResponse": "Quick Response",
+    
+    // Services
+    "services.title": "Our Services",
+    "services.heading": "Skilled Professionals at Your Service",
+    "services.description": "From everyday repairs to specialized projects, find the right expert for every job.",
+    "services.carpenter": "Carpenter",
+    "services.carpenterDesc": "Furniture repair, custom woodwork, and installations",
+    "services.plumber": "Plumber",
+    "services.plumberDesc": "Pipe repairs, fitting installations, and drainage solutions",
+    "services.electrician": "Electrician",
+    "services.electricianDesc": "Wiring, repairs, appliance installations, and safety checks",
+    "services.painter": "Painter",
+    "services.painterDesc": "Interior, exterior, and decorative painting services",
+    "services.dailyLabour": "Daily Labour",
+    "services.dailyLabourDesc": "General assistance for moving, cleaning, and manual work",
+    "services.cleaning": "Cleaning",
+    "services.cleaningDesc": "Deep cleaning, regular maintenance, and sanitization",
+    "services.makeupArtist": "Makeup Artist",
+    "services.makeupArtistDesc": "Bridal makeup, party makeup, and beauty services",
+    "services.locksmith": "Locksmith",
+    "services.locksmithDesc": "Lock installation, repair, and key duplication services",
+    "services.carMechanic": "Car Mechanic",
+    "services.carMechanicDesc": "Car repairs, maintenance, and servicing",
+    "services.find": "Find",
+    "services.showMore": "Show More",
+    "services.showLess": "Show Less",
+    
+    // How It Works
+    "howItWorks.title": "Simple Process",
+    "howItWorks.heading": "How Kaarigar Works",
+    "howItWorks.description": "Find and book trusted local workers in three simple steps.",
+    "howItWorks.step1": "Enter Your Location",
+    "howItWorks.step1Desc": "Share your area or pin your location to find workers nearby.",
+    "howItWorks.step2": "Choose a Professional",
+    "howItWorks.step2Desc": "Browse verified profiles, ratings, and reviews to select the right fit.",
+    "howItWorks.step3": "Book & Get It Done",
+    "howItWorks.step3Desc": "Schedule at your convenience and get quality work completed.",
+    
+    // Worker CTA
+    "workerCta.title": "For Skilled Workers",
+    "workerCta.heading": "Join Kaarigar and Grow Your Business",
+    "workerCta.description": "Register as a skilled professional and connect with customers in your area. No fees to join—start earning more today.",
+    "workerCta.register": "Register as Worker",
+    "workerCta.learnMore": "Learn More",
+    "workerCta.benefit1Title": "More Work Opportunities",
+    "workerCta.benefit1Desc": "Get connected with customers looking for your skills",
+    "workerCta.benefit2Title": "Grow Your Income",
+    "workerCta.benefit2Desc": "Set your own rates and increase your earnings",
+    "workerCta.benefit3Title": "Flexible Schedule",
+    "workerCta.benefit3Desc": "Work when you want, accept jobs that suit you",
+    "workerCta.benefit4Title": "Trusted Platform",
+    "workerCta.benefit4Desc": "Build credibility with verified reviews and ratings",
+    
+    // Worker Registration
+    "workerRegistration.title": "Register as a Worker",
+    "workerRegistration.subtitle": "Join thousands of skilled professionals and start earning today",
+    "workerRegistration.back": "Back to Home",
+    "workerRegistration.name": "Full Name",
+    "workerRegistration.namePlaceholder": "Enter your full name",
+    "workerRegistration.phone": "Phone Number",
+    "workerRegistration.phonePlaceholder": "Enter your phone number",
+    "workerRegistration.email": "Email Address",
+    "workerRegistration.emailPlaceholder": "Enter your email address",
+    "workerRegistration.service": "Service Type",
+    "workerRegistration.servicePlaceholder": "Select your service",
+    "workerRegistration.location": "Location",
+    "workerRegistration.selectLocation": "Select Location (Google Maps)",
+    "workerRegistration.locationPlaceholder": "Search location with Google Maps...",
+    "workerRegistration.locationHint": "Start typing to search with Google Maps",
+    "workerRegistration.fullAddress": "Full Address",
+    "workerRegistration.fullAddressPlaceholder": "Full address will be auto-filled from location",
+    "workerRegistration.fullAddressHint": "This will be automatically filled when you select a location",
+    "workerRegistration.pincode": "Pincode",
+    "workerRegistration.pincodePlaceholder": "6-digit pincode",
+    "workerRegistration.pincodeHint": "Pincode will be automatically extracted from location",
+    "workerRegistration.invalidPincode": "Please enter a valid 6-digit pincode",
+    "workerRegistration.experience": "Years of Experience",
+    "workerRegistration.experiencePlaceholder": "e.g., 5 years",
+    "workerRegistration.perDayCharges": "Per Day Charges",
+    "workerRegistration.perDayChargesPlaceholder": "Enter your per day charges (₹)",
+    "workerRegistration.description": "About You",
+    "workerRegistration.descriptionPlaceholder": "Tell us about your skills and experience...",
+    "workerRegistration.submit": "Submit Registration",
+    "workerRegistration.submitting": "Submitting...",
+    "workerRegistration.successTitle": "Registration Successful!",
+    "workerRegistration.successMessage": "Thank you for registering! We'll review your application and contact you soon.",
+    "workerRegistration.backToHome": "Back to Home",
+    "workerRegistration.validationError": "Please fill in all required fields",
+    "workerRegistration.invalidCharges": "Please enter a valid per day charges amount",
+    "workerRegistration.submitError": "Failed to submit registration. Please try again.",
+    
+    // Workers List
+    "workersList.title": "Available Workers",
+    "workersList.allWorkers": "All Workers",
+    "workersList.subtitle": "Browse available skilled workers",
+    "workersList.back": "Back to Home",
+    "workersList.backToHome": "Back to Home",
+    "workersList.loading": "Loading workers...",
+    "workersList.fetchError": "Failed to load workers",
+    "workersList.retry": "Retry",
+    "workersList.noWorkers": "No workers available for this service",
+    "workersList.book": "Book",
+    "workersList.perDay": "per day",
+    "workersList.yearsExperience": "years experience",
+    "workersList.searchByPincode": "Search by pincode (6 digits)",
+    "workersList.search": "Search",
+    "workersList.clearPincode": "Clear pincode filter",
+    "workersList.invalidPincode": "Please enter a valid 6-digit pincode",
+    
+    // Booking
+    "booking.title": "Book Worker",
+    "booking.description": "Select your dates and time to book this worker",
+    "booking.selectDateRange": "Select Date Range",
+    "booking.selectDates": "Select Dates",
+    "booking.selectTime": "Select Time",
+    "booking.workerInfo": "Worker Information",
+    "booking.cancel": "Cancel",
+    "booking.confirm": "Confirm Booking",
+    "booking.confirmBooking": "Confirm Booking",
+    "booking.booking": "Booking...",
+    "booking.error": "Failed to create booking",
+    "booking.success": "Booking created successfully!",
+    "booking.confirmed": "Booking Confirmed!",
+    "booking.confirmationMessage": "Your booking has been confirmed successfully.",
+    "booking.checkIn": "Check-in",
+    "booking.checkOut": "Check-out",
+    "booking.selectCheckIn": "Select check-in date",
+    "booking.selectCheckOut": "Select check-out date",
+    "booking.worker": "Worker",
+    "booking.time": "Time",
+    "booking.total": "Total Amount",
+    "booking.close": "Close",
+    "booking.priceBreakdown": "Price Breakdown",
+    "booking.perDay": "Per Day",
+    "booking.day": "day",
+    "booking.days": "days",
+    
+    // Profile
+    "profile.title": "Your Profile",
+    "profile.myBookings": "My Bookings",
+    "profile.loading": "Loading bookings...",
+    "profile.retry": "Retry",
+    "profile.noBookings": "No bookings yet",
+    "profile.noBookingsDescription": "You haven't made any bookings yet. Start booking workers now!",
+    "profile.browseWorkers": "Browse Workers",
+    "profile.perDay": "Per Day",
+    "profile.days": "Days",
+    "profile.total": "Total Amount",
+    "profile.payNow": "Pay Now",
+    "profile.payToPerson": "Pay to Person",
+    "profile.payNowAlert": "Pay",
+    "profile.for": "for",
+    "profile.payToPersonAlert": "Please pay",
+    "profile.directlyTo": "directly to",
+    
+    // Footer
+    "footer.description": "Connecting households with trusted local skilled workers across India.",
+    "footer.services": "Services",
+    "footer.company": "Company",
+    "footer.legal": "Legal",
+    "footer.aboutUs": "About Us",
+    "footer.careers": "Careers",
+    "footer.contact": "Contact",
+    "footer.blog": "Blog",
+    "footer.privacyPolicy": "Privacy Policy",
+    "footer.termsOfService": "Terms of Service",
+    "footer.refundPolicy": "Refund Policy",
+    "footer.copyright": "All rights reserved.",
+  },
+  hi: {
+    // Header
+    "nav.services": "सेवाएं",
+    "nav.howItWorks": "यह कैसे काम करता है",
+    "nav.forWorkers": "कारीगरों के लिए",
+    "header.login": "लॉग इन करें",
+    "header.getStarted": "शुरू करें",
+    
+    // Hero
+    "hero.badge": "10,000+ परिवारों द्वारा भरोसेमंद",
+    "hero.title": "कुशल के साथ जुड़ें",
+    "hero.titleHighlight": "स्थानीय कारीगर",
+    "hero.titleEnd": "आपके पास",
+    "hero.subtitle": "अपने पड़ोस में सत्यापित बढ़ई, प्लंबर, इलेक्ट्रिशियन और बहुत कुछ खोजें। एक ही टैप के साथ विश्वसनीय पेशेवरों को बुक करें।",
+    "hero.locationPlaceholder": "अपना स्थान दर्ज करें...",
+    "hero.findWorkers": "कारीगर खोजें",
+    "hero.searching": "खोज जारी है...",
+    "hero.verified": "सत्यापित कारीगर",
+    "hero.fairPricing": "उचित मूल्य निर्धारण",
+    "hero.quickResponse": "त्वरित प्रतिक्रिया",
+    
+    // Services
+    "services.title": "हमारी सेवाएं",
+    "services.heading": "आपकी सेवा में कुशल पेशेवर",
+    "services.description": "दैनिक मरम्मत से लेकर विशेष परियोजनाओं तक, हर काम के लिए सही विशेषज्ञ खोजें।",
+    "services.carpenter": "बढ़ई",
+    "services.carpenterDesc": "फर्नीचर मरम्मत, कस्टम लकड़ी का काम, और स्थापना",
+    "services.plumber": "प्लंबर",
+    "services.plumberDesc": "पाइप मरम्मत, फिटिंग स्थापना, और जल निकासी समाधान",
+    "services.electrician": "इलेक्ट्रिशियन",
+    "services.electricianDesc": "वायरिंग, मरम्मत, उपकरण स्थापना, और सुरक्षा जांच",
+    "services.painter": "पेंटर",
+    "services.painterDesc": "आंतरिक, बाहरी, और सजावटी पेंटिंग सेवाएं",
+    "services.dailyLabour": "दैनिक मजदूर",
+    "services.dailyLabourDesc": "स्थानांतरित करने, सफाई, और मैनुअल काम के लिए सामान्य सहायता",
+    "services.cleaning": "सफाई",
+    "services.cleaningDesc": "गहरी सफाई, नियमित रखरखाव, और सैनिटाइजेशन",
+    "services.makeupArtist": "मेकअप आर्टिस्ट",
+    "services.makeupArtistDesc": "शादी का मेकअप, पार्टी मेकअप, और ब्यूटी सर्विसेज",
+    "services.locksmith": "ताला बनाने वाला",
+    "services.locksmithDesc": "ताला स्थापना, मरम्मत, और चाबी डुप्लिकेट सेवाएं",
+    "services.carMechanic": "कार मैकेनिक",
+    "services.carMechanicDesc": "कार मरम्मत, रखरखाव, और सर्विसिंग",
+    "services.find": "खोजें",
+    "services.showMore": "और दिखाएं",
+    "services.showLess": "कम दिखाएं",
+    
+    // How It Works
+    "howItWorks.title": "सरल प्रक्रिया",
+    "howItWorks.heading": "कारीगर कैसे काम करता है",
+    "howItWorks.description": "तीन सरल चरणों में विश्वसनीय स्थानीय कारीगर खोजें और बुक करें।",
+    "howItWorks.step1": "अपना स्थान दर्ज करें",
+    "howItWorks.step1Desc": "अपना क्षेत्र साझा करें या पास के कारीगर खोजने के लिए अपना स्थान पिन करें।",
+    "howItWorks.step2": "एक पेशेवर चुनें",
+    "howItWorks.step2Desc": "सही फिट चुनने के लिए सत्यापित प्रोफाइल, रेटिंग और समीक्षाएं ब्राउज़ करें।",
+    "howItWorks.step3": "बुक करें और काम पूरा करें",
+    "howItWorks.step3Desc": "अपनी सुविधा के अनुसार शेड्यूल करें और गुणवत्तापूर्ण काम पूरा करें।",
+    
+    // Worker CTA
+    "workerCta.title": "कुशल कारीगरों के लिए",
+    "workerCta.heading": "कारीगर से जुड़ें और अपना व्यवसाय बढ़ाएं",
+    "workerCta.description": "एक कुशल पेशेवर के रूप में पंजीकरण करें और अपने क्षेत्र में ग्राहकों से जुड़ें। शामिल होने के लिए कोई शुल्क नहीं—आज ही अधिक कमाई शुरू करें।",
+    "workerCta.register": "कारीगर के रूप में पंजीकरण करें",
+    "workerCta.learnMore": "और जानें",
+    "workerCta.benefit1Title": "अधिक काम के अवसर",
+    "workerCta.benefit1Desc": "आपकी कौशल की तलाश करने वाले ग्राहकों से जुड़ें",
+    "workerCta.benefit2Title": "अपनी आय बढ़ाएं",
+    "workerCta.benefit2Desc": "अपनी दरें निर्धारित करें और अपनी कमाई बढ़ाएं",
+    "workerCta.benefit3Title": "लचीला कार्यक्रम",
+    "workerCta.benefit3Desc": "जब चाहें काम करें, अपने अनुकूल नौकरियां स्वीकार करें",
+    "workerCta.benefit4Title": "भरोसेमंद प्लेटफॉर्म",
+    "workerCta.benefit4Desc": "सत्यापित समीक्षाओं और रेटिंग के साथ विश्वसनीयता बनाएं",
+    
+    // Worker Registration
+    "workerRegistration.title": "कारीगर के रूप में पंजीकरण करें",
+    "workerRegistration.subtitle": "हजारों कुशल पेशेवरों से जुड़ें और आज ही कमाई शुरू करें",
+    "workerRegistration.back": "होम पर वापस जाएं",
+    "workerRegistration.name": "पूरा नाम",
+    "workerRegistration.namePlaceholder": "अपना पूरा नाम दर्ज करें",
+    "workerRegistration.phone": "फोन नंबर",
+    "workerRegistration.phonePlaceholder": "अपना फोन नंबर दर्ज करें",
+    "workerRegistration.email": "ईमेल पता",
+    "workerRegistration.emailPlaceholder": "अपना ईमेल पता दर्ज करें",
+    "workerRegistration.service": "सेवा प्रकार",
+    "workerRegistration.servicePlaceholder": "अपनी सेवा चुनें",
+    "workerRegistration.location": "स्थान",
+    "workerRegistration.locationPlaceholder": "अपना शहर/क्षेत्र दर्ज करें",
+    "workerRegistration.experience": "वर्षों का अनुभव",
+    "workerRegistration.experiencePlaceholder": "उदाहरण: 5 वर्ष",
+    "workerRegistration.perDayCharges": "प्रति दिन शुल्क",
+    "workerRegistration.perDayChargesPlaceholder": "अपना प्रति दिन शुल्क दर्ज करें (₹)",
+    "workerRegistration.description": "आपके बारे में",
+    "workerRegistration.descriptionPlaceholder": "अपने कौशल और अनुभव के बारे में बताएं...",
+    "workerRegistration.submit": "पंजीकरण सबमिट करें",
+    "workerRegistration.submitting": "सबमिट हो रहा है...",
+    "workerRegistration.successTitle": "पंजीकरण सफल!",
+    "workerRegistration.successMessage": "पंजीकरण के लिए धन्यवाद! हम आपके आवेदन की समीक्षा करेंगे और जल्द ही आपसे संपर्क करेंगे।",
+    "workerRegistration.backToHome": "होम पर वापस जाएं",
+    "workerRegistration.validationError": "कृपया सभी आवश्यक फ़ील्ड भरें",
+    "workerRegistration.invalidCharges": "कृपया प्रति दिन शुल्क की एक वैध राशि दर्ज करें",
+    "workerRegistration.submitError": "पंजीकरण सबमिट करने में विफल। कृपया पुन: प्रयास करें।",
+    
+    // Workers List
+    "workersList.title": "उपलब्ध कारीगर",
+    "workersList.allWorkers": "सभी कारीगर",
+    "workersList.subtitle": "उपलब्ध कुशल कारीगरों को ब्राउज़ करें",
+    "workersList.back": "होम पर वापस जाएं",
+    "workersList.backToHome": "होम पर वापस जाएं",
+    "workersList.loading": "कारीगर लोड हो रहे हैं...",
+    "workersList.fetchError": "कारीगर लोड करने में विफल",
+    "workersList.retry": "पुन: प्रयास करें",
+    "workersList.noWorkers": "इस सेवा के लिए कोई कारीगर उपलब्ध नहीं है",
+    "workersList.book": "बुक करें",
+    "workersList.perDay": "प्रति दिन",
+    "workersList.yearsExperience": "वर्ष का अनुभव",
+    "workersList.searchByPincode": "पिन कोड से खोजें (6 अंक)",
+    "workersList.search": "खोजें",
+    "workersList.clearPincode": "पिन कोड फ़िल्टर साफ़ करें",
+    "workersList.invalidPincode": "कृपया 6 अंकों का वैध पिन कोड दर्ज करें",
+    
+    // Booking
+    "booking.title": "कारीगर बुक करें",
+    "booking.description": "इस कारीगर को बुक करने के लिए अपनी तारीखें और समय चुनें",
+    "booking.selectDateRange": "दिनांक रेंज चुनें",
+    "booking.selectDates": "दिनांक चुनें",
+    "booking.selectTime": "समय चुनें",
+    "booking.workerInfo": "कारीगर की जानकारी",
+    "booking.cancel": "रद्द करें",
+    "booking.confirm": "बुकिंग की पुष्टि करें",
+    "booking.confirmBooking": "बुकिंग की पुष्टि करें",
+    "booking.booking": "बुक हो रहा है...",
+    "booking.error": "बुकिंग बनाने में विफल",
+    "booking.success": "बुकिंग सफलतापूर्वक बनाई गई!",
+    "booking.confirmed": "बुकिंग पुष्टि!",
+    "booking.confirmationMessage": "आपकी बुकिंग सफलतापूर्वक पुष्टि हो गई है।",
+    "booking.checkIn": "चेक-इन",
+    "booking.checkOut": "चेक-आउट",
+    "booking.selectCheckIn": "चेक-इन दिनांक चुनें",
+    "booking.selectCheckOut": "चेक-आउट दिनांक चुनें",
+    "booking.worker": "कारीगर",
+    "booking.time": "समय",
+    "booking.total": "कुल राशि",
+    "booking.close": "बंद करें",
+    "booking.priceBreakdown": "मूल्य विवरण",
+    "booking.perDay": "प्रति दिन",
+    "booking.day": "दिन",
+    "booking.days": "दिन",
+    
+    // Footer
+    "footer.description": "भारत भर में विश्वसनीय स्थानीय कुशल कारीगरों के साथ परिवारों को जोड़ना।",
+    "footer.services": "सेवाएं",
+    "footer.company": "कंपनी",
+    "footer.legal": "कानूनी",
+    "footer.aboutUs": "हमारे बारे में",
+    "footer.careers": "करियर",
+    "footer.contact": "संपर्क करें",
+    "footer.blog": "ब्लॉग",
+    "footer.privacyPolicy": "गोपनीयता नीति",
+    "footer.termsOfService": "सेवा की शर्तें",
+    "footer.refundPolicy": "रिफंड नीति",
+    "footer.copyright": "सभी अधिकार सुरक्षित।",
+  },
+};
+
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguage] = useState<Language>(() => {
+    const saved = localStorage.getItem("language") as Language;
+    return saved || "en";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("language", language);
+  }, [language]);
+
+  const toggleLanguage = () => {
+    setLanguage((prev) => (prev === "en" ? "hi" : "en"));
+  };
+
+  const t = (key: string): string => {
+    return translations[language][key] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error("useLanguage must be used within a LanguageProvider");
+  }
+  return context;
+};
+
