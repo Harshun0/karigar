@@ -6,32 +6,36 @@ export default async function handler(req, res) {
   }
 
   try {
+    console.log('Connecting to database...');
+    const { db } = await connectToDatabase();
+    console.log('Database connected successfully');
+    
+    const workersCollection = db.collection('workers');
     const { service, pincode } = req.query;
     
-    const { db } = await connectToDatabase();
-    const workersCollection = db.collection('workers');
     let query = {};
+    if (service) query.service = service;
+    if (pincode) query.pincode = pincode;
     
-    if (service) {
-      query.service = service;
-    }
-
-    if (pincode) {
-      query.pincode = pincode;
-    }
-    
+    console.log('Querying workers with:', query);
     const workers = await workersCollection.find(query).toArray();
+    console.log(`Found ${workers.length} workers`);
     
     res.json({
       success: true,
       workers: workers
     });
   } catch (error) {
-    console.error('Error fetching workers:', error);
+    console.error('Error in workers API:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    
     res.status(500).json({
       success: false,
       message: 'Error fetching workers',
-      error: error.message
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
     });
   }
 }
