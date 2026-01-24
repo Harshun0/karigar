@@ -282,7 +282,7 @@ const WorkerRegistration = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="location">{t("स्थान चुनें")} *</Label>
+              <Label htmlFor="location">{t("workerRegistration.location")} *</Label>
               <div className="relative">
                 <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -297,15 +297,15 @@ const WorkerRegistration = () => {
                       handleInputChange("fullAddress", e.target.value);
                     }
                   }}
-                  placeholder={t("workerRegistration.locationPlaceholder") || "Search location..."}
+                  placeholder={t("workerRegistration.locationPlaceholder")}
                   className="pl-10"
                 />
               </div>
               <p className="text-xs text-muted-foreground">
-                {t("Google Maps से खोजने के लिए टाइप करना शुरू करें") || "Start typing to search with OpenStreetMap"}
+                {t("workerRegistration.locationHelper")}
               </p>
               {isSearchingLocation && (
-                <p className="text-xs text-muted-foreground">{t("खोज रहे हैं...") || "Searching..."}</p>
+                <p className="text-xs text-muted-foreground">{t("workerRegistration.searching")}</p>
               )}
               {locationSearchError && (
                 <p className="text-xs text-destructive">{locationSearchError}</p>
@@ -330,24 +330,24 @@ const WorkerRegistration = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="fullAddress">{t("पूरा पता")} *</Label>
+              <Label htmlFor="fullAddress">{t("workerRegistration.fullAddress")} *</Label>
               <Textarea
                 id="fullAddress"
                 required
                 value={formData.fullAddress}
                 onChange={(e) => handleInputChange("fullAddress", e.target.value)}
-                placeholder={t("पूरा पता दर्ज करें") || "Full address will be auto-filled from location"}
+                placeholder={t("workerRegistration.fullAddressPlaceholder")}
                 rows={3}
                 readOnly
                 className="bg-muted"
               />
               <p className="text-xs text-muted-foreground">
-                {t("जब आप कोई लोकेशन चुनेंगे तो यह अपने आप भर जाएगा") || "This will be automatically filled when you select a location"}
+                {t("workerRegistration.fullAddressHelper")}
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="pincode">{t("पिनकोड")} *</Label>
+              <Label htmlFor="pincode">{t("workerRegistration.pincode")} *</Label>
               <Input
                 id="pincode"
                 required
@@ -358,12 +358,12 @@ const WorkerRegistration = () => {
                   const value = e.target.value.replace(/\D/g, ''); // Only numbers
                   handleInputChange("pincode", value);
                 }}
-                placeholder={t("6-digit pincode") || "6-digit pincode"}
+                placeholder={t("workerRegistration.pincodePlaceholder")}
                 readOnly={!!formData.pincode}
                 className={formData.pincode ? "bg-muted" : ""}
               />
               <p className="text-xs text-muted-foreground">
-                {t("पिनकोड लोकेशन से अपने आप एक्सट्रैक्ट हो जाएगा") || "Pincode will be automatically extracted from location"}
+                {t("workerRegistration.pincodeHelper")}
               </p>
             </div>
 
@@ -411,7 +411,7 @@ const WorkerRegistration = () => {
             )}
 
             <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
-              {isLoading ? t("workerRegistration.submitting") || "Submitting..." : t("workerRegistration.submit")}
+              {isLoading ? t("workerRegistration.submitting") : t("workerRegistration.submit")}
             </Button>
           </form>
         </div>
