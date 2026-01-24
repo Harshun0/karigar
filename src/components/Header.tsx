@@ -59,24 +59,6 @@ const Header = () => {
             >
               {t("nav.forWorkers")}
             </button>
-            <button 
-              onClick={() => { navigate("/privacy-policy"); window.scrollTo(0, 0); }}
-              className="text-muted-foreground hover:text-foreground transition-colors font-medium"
-            >
-              {t("nav.privacyPolicy")}
-            </button>
-            <button 
-              onClick={() => { navigate("/terms-of-service"); window.scrollTo(0, 0); }}
-              className="text-muted-foreground hover:text-foreground transition-colors font-medium"
-            >
-              {t("nav.termsOfService")}
-            </button>
-            <button 
-              onClick={() => { navigate("/refund-policy"); window.scrollTo(0, 0); }}
-              className="text-muted-foreground hover:text-foreground transition-colors font-medium"
-            >
-              {t("nav.refundPolicy")}
-            </button>
           </nav>
 
           {/* Desktop CTA */}
@@ -156,24 +138,6 @@ const Header = () => {
                 className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2 text-left"
               >
                 {t("nav.forWorkers")}
-              </button>
-              <button
-                onClick={() => { setIsMenuOpen(false); navigate("/privacy-policy"); window.scrollTo(0, 0); }}
-                className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2 text-left"
-              >
-                {t("nav.privacyPolicy")}
-              </button>
-              <button
-                onClick={() => { setIsMenuOpen(false); navigate("/terms-of-service"); window.scrollTo(0, 0); }}
-                className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2 text-left"
-              >
-                {t("nav.termsOfService")}
-              </button>
-              <button
-                onClick={() => { setIsMenuOpen(false); navigate("/refund-policy"); window.scrollTo(0, 0); }}
-                className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2 text-left"
-              >
-                {t("nav.refundPolicy")}
               </button>
             </nav>
             <div className="flex flex-col gap-3">
