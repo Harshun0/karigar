@@ -80,8 +80,8 @@ const Footer = () => {
               Services
               <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-gray-500 to-gray-700 group-hover/section:w-full transition-all duration-500" />
             </h4>
-            <ul className="space-y-3">
-              {services.map((service) => (
+            <ul className="space-y-3 mb-4 md:mb-0">
+              {services.slice(0, 4).map((service) => (
                 <li key={service.id}>
                   <a
                     href={`/workers?service=${service.id}`}
@@ -127,7 +127,7 @@ const Footer = () => {
           </div>
 
           {/* Legal */}
-          <div className="group/section">
+          <div className="group/section hidden md:block order-last md:order-none">
             <h4 className="font-semibold text-white mb-6 relative inline-block text-lg">
               Legal
               <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-gray-500 to-gray-700 group-hover/section:w-full transition-all duration-500" />

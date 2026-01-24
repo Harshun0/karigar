@@ -282,7 +282,7 @@ const WorkerRegistration = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="location">{t("workerRegistration.selectLocation")} *</Label>
+              <Label htmlFor="location">{t("स्थान चुनें")} *</Label>
               <div className="relative">
                 <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -302,10 +302,10 @@ const WorkerRegistration = () => {
                 />
               </div>
               <p className="text-xs text-muted-foreground">
-                {t("workerRegistration.locationHint") || "Start typing to search with OpenStreetMap"}
+                {t("Google Maps से खोजने के लिए टाइप करना शुरू करें") || "Start typing to search with OpenStreetMap"}
               </p>
               {isSearchingLocation && (
-                <p className="text-xs text-muted-foreground">{t("workerRegistration.searching") || "Searching..."}</p>
+                <p className="text-xs text-muted-foreground">{t("खोज रहे हैं...") || "Searching..."}</p>
               )}
               {locationSearchError && (
                 <p className="text-xs text-destructive">{locationSearchError}</p>
@@ -330,24 +330,24 @@ const WorkerRegistration = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="fullAddress">{t("workerRegistration.fullAddress")} *</Label>
+              <Label htmlFor="fullAddress">{t("पूरा पता")} *</Label>
               <Textarea
                 id="fullAddress"
                 required
                 value={formData.fullAddress}
                 onChange={(e) => handleInputChange("fullAddress", e.target.value)}
-                placeholder={t("workerRegistration.fullAddressPlaceholder") || "Full address will be auto-filled from location"}
+                placeholder={t("पूरा पता दर्ज करें") || "Full address will be auto-filled from location"}
                 rows={3}
                 readOnly
                 className="bg-muted"
               />
               <p className="text-xs text-muted-foreground">
-                {t("workerRegistration.fullAddressHint") || "This will be automatically filled when you select a location"}
+                {t("जब आप कोई लोकेशन चुनेंगे तो यह अपने आप भर जाएगा") || "This will be automatically filled when you select a location"}
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="pincode">{t("workerRegistration.pincode")} *</Label>
+              <Label htmlFor="pincode">{t("पिनकोड")} *</Label>
               <Input
                 id="pincode"
                 required
@@ -358,12 +358,12 @@ const WorkerRegistration = () => {
                   const value = e.target.value.replace(/\D/g, ''); // Only numbers
                   handleInputChange("pincode", value);
                 }}
-                placeholder={t("workerRegistration.pincodePlaceholder") || "6-digit pincode"}
+                placeholder={t("6-digit pincode") || "6-digit pincode"}
                 readOnly={!!formData.pincode}
                 className={formData.pincode ? "bg-muted" : ""}
               />
               <p className="text-xs text-muted-foreground">
-                {t("workerRegistration.pincodeHint") || "Pincode will be automatically extracted from location"}
+                {t("पिनकोड लोकेशन से अपने आप एक्सट्रैक्ट हो जाएगा") || "Pincode will be automatically extracted from location"}
               </p>
             </div>
 

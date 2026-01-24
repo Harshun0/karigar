@@ -234,14 +234,6 @@ const Profile = () => {
                     <div className="flex flex-col gap-2 md:justify-end">
                       <Button 
                         variant="default" 
-                        onClick={() => handlePayNow(booking)}
-                        className="w-full"
-                      >
-                        <CreditCard className="h-4 w-4 mr-2" />
-                        {t("profile.payNow") || "Pay Now"}
-                      </Button>
-                      <Button 
-                        variant="outline" 
                         onClick={() => handlePayToPerson(booking)}
                         className="w-full"
                       >
