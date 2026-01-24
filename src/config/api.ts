@@ -1,6 +1,6 @@
 const API_BASE_URL = import.meta.env.PROD 
-  ? '' // In production, use relative URLs for Vercel serverless functions
-  : 'http://localhost:3001'; // In development, use local backend server
+  ? process.env.NEXT_PUBLIC_API_URL || '' // In production, use NEXT_PUBLIC_API_URL
+  : 'http://localhost:3001'; // In development, use local backend server // In development, use local backend server
 
 export const API_ENDPOINTS = {
   // Workers
