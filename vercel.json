@@ -7,25 +7,19 @@
       "config": {
         "distDir": "dist"
       }
-    },
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node",
-      "config": {
-        "maxDuration": 10
-      }
     }
   ],
- "routes": [
-  {
-    "handle": "filesystem"
-  },
-  {
-    "src": "/(.*)",
-    "dest": "/index.html"
-  }
-],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "VITE_API_URL": "https://your-backend-on-render.vercel.app"
   }
 }

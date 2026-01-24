@@ -1,5 +1,5 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
-                     (process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : '');
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 export const API_ENDPOINTS = {
   // Workers
