@@ -103,18 +103,30 @@ const Header = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 -mr-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="w-6 h-6 text-foreground" />
-            ) : (
-              <Menu className="w-6 h-6 text-foreground" />
-            )}
-          </button>
+          {/* Mobile Language Toggle and Menu Button */}
+          <div className="md:hidden flex items-center gap-2">
+            <Button
+              variant="outline"
+              onClick={toggleLanguage}
+              className="gap-2"
+              aria-label="Toggle language"
+              title={language === "en" ? "हिंदी में बदलें" : "Change to English"}
+            >
+              <Languages className="w-4 h-4" />
+              <span className="text-sm font-medium">{language === "en" ? "EN" : "HI"}</span>
+            </Button>
+            <button
+              className="p-2 -mr-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? (
+                <X className="w-6 h-6 text-foreground" />
+              ) : (
+                <Menu className="w-6 h-6 text-foreground" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -141,14 +153,6 @@ const Header = () => {
               </button>
             </nav>
             <div className="flex flex-col gap-3">
-              <Button
-                variant="outline"
-                onClick={toggleLanguage}
-                className="w-full"
-              >
-                <Languages className="w-4 h-4 mr-2" />
-                {language === "en" ? "हिंदी" : "English"}
-              </Button>
               {isAuthenticated ? (
                 <>
                   <div className="px-4 py-2 text-sm">
