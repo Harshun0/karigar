@@ -36,10 +36,7 @@ const Header = () => {
             onClick={() => { navigate("/"); window.scrollTo(0, 0); }}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-display font-bold text-lg md:text-xl">K</span>
-            </div>
-            <span className="font-display font-bold text-xl md:text-2xl text-foreground">Kaarigar</span>
+            <img src="/karigar.png" alt="Karigar Logo" className="h-16 md:h-18 w-auto" />
           </button>
 
           {/* Desktop Navigation */}
@@ -61,6 +58,24 @@ const Header = () => {
               className="text-muted-foreground hover:text-foreground transition-colors font-medium"
             >
               {t("nav.forWorkers")}
+            </button>
+            <button 
+              onClick={() => { navigate("/privacy-policy"); window.scrollTo(0, 0); }}
+              className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+            >
+              {t("nav.privacyPolicy")}
+            </button>
+            <button 
+              onClick={() => { navigate("/terms-of-service"); window.scrollTo(0, 0); }}
+              className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+            >
+              {t("nav.termsOfService")}
+            </button>
+            <button 
+              onClick={() => { navigate("/refund-policy"); window.scrollTo(0, 0); }}
+              className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+            >
+              {t("nav.refundPolicy")}
             </button>
           </nav>
 
@@ -90,10 +105,6 @@ const Header = () => {
                   <DropdownMenuItem onClick={() => { navigate("/profile"); window.scrollTo(0, 0); }} className="cursor-pointer">
                     <User className="mr-2 h-4 w-4" />
                     {t("header.profile") || "Profile"}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => { navigate("/profile"); window.scrollTo(0, 0); }} className="cursor-pointer">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    {t("header.myBookings") || "My Bookings"}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
@@ -145,6 +156,24 @@ const Header = () => {
                 className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2 text-left"
               >
                 {t("nav.forWorkers")}
+              </button>
+              <button
+                onClick={() => { setIsMenuOpen(false); navigate("/privacy-policy"); window.scrollTo(0, 0); }}
+                className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2 text-left"
+              >
+                {t("nav.privacyPolicy")}
+              </button>
+              <button
+                onClick={() => { setIsMenuOpen(false); navigate("/terms-of-service"); window.scrollTo(0, 0); }}
+                className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2 text-left"
+              >
+                {t("nav.termsOfService")}
+              </button>
+              <button
+                onClick={() => { setIsMenuOpen(false); navigate("/refund-policy"); window.scrollTo(0, 0); }}
+                className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2 text-left"
+              >
+                {t("nav.refundPolicy")}
               </button>
             </nav>
             <div className="flex flex-col gap-3">

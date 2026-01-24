@@ -50,7 +50,7 @@ const WorkerCTA = () => {
               <Button variant="hero" size="xl" onClick={() => navigate("/register-worker")}>
                 {t("workerCta.register")}
               </Button>
-              <Button variant="outline" size="xl" className="border-foreground/20 text-foreground hover:bg-foreground/10 hover:border-foreground/40">
+              <Button variant="outline" size="xl" className="border-foreground/20 text-foreground hover:bg-foreground/10 hover:border-foreground/40" onClick={() => navigate("/about")}>
                 {t("workerCta.learnMore")}
               </Button>
             </div>

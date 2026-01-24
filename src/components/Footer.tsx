@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
-import { Facebook, Twitter, Instagram, ArrowUpRight } from 'lucide-react';
+import { Facebook, Twitter, Instagram, ArrowUpRight, Hammer, Wrench, Zap, Palette, Sparkles, Leaf, Car, Phone, Mail } from 'lucide-react';
 
 const Footer = () => {
   const [hoveredService, setHoveredService] = useState(null);
   const currentYear = new Date().getFullYear();
 
   const services = [
-    { id: 'carpenter', name: 'Carpenter', icon: '🔨' },
-    { id: 'plumber', name: 'Plumber', icon: '🔧' },
-    { id: 'electrician', name: 'Electrician', icon: '⚡' },
-    { id: 'painter', name: 'Painter', icon: '🎨' },
-    { id: 'cleaning', name: 'Cleaning', icon: '✨' }
+    { id: 'carpenter', name: 'Carpenter', icon: <Hammer /> },
+    { id: 'plumber', name: 'Plumber', icon: <Wrench /> },
+    { id: 'electrician', name: 'Electrician', icon: <Zap /> },
+    { id: 'painter', name: 'Painter', icon: <Palette /> },
+    { id: 'cleaning', name: 'Cleaning', icon: <Sparkles /> },
+    { id: 'gardener', name: 'Gardener', icon: <Leaf /> },
+    { id: 'mechanic', name: 'Mechanic', icon: <Car /> }
   ];
 
   const company = [
-    { name: 'About Us', href: '#services' },
-    { name: 'Careers', href: '/register-worker' },
-    { name: 'Contact', href: '#services' },
-    { name: 'Blog', href: '#how-it-works' }
+    { name: 'About Us', href: '/about' },
+    { name: 'Careers', href: '/register-worker' }
   ];
 
   const legal = [
-    { name: 'Privacy Policy', href: '/#services' },
-    { name: 'Terms of Service', href: '/#services' },
-    { name: 'Refund Policy', href: '/#services' }
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms of Service', href: '/terms-of-service' },
+    { name: 'Refund Policy', href: '/refund-policy' }
   ];
 
   return (
@@ -45,20 +45,21 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="col-span-2 md:col-span-1 space-y-4">
             <div className="flex items-center gap-3 group cursor-pointer">
-              <div className="relative">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-700 via-gray-600 to-gray-500 flex items-center justify-center shadow-lg shadow-gray-700/50 group-hover:shadow-gray-600/70 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110">
-                  <span className="text-white font-bold text-xl relative z-10">K</span>
-                </div>
-                {/* Rotating Ring */}
-                <div className="absolute inset-0 border-2 border-gray-600/30 rounded-xl group-hover:rotate-180 transition-transform duration-700" />
-              </div>
-              <span className="font-bold text-2xl bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent group-hover:from-gray-300 group-hover:to-gray-500 transition-all duration-500">
-                Kaarigar
-              </span>
+              <img src="/karigar.png" alt="Karigar Logo" className="h-16 w-auto" />
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+            <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-4">
               Connecting skilled professionals with those who need them. Quality service at your doorstep.
             </p>
+            <div className="space-y-1">
+              <a href="tel:+918103146100" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                <Phone className="w-4 h-4" />
+                <span className="text-sm">+91 8103146100</span>
+              </a>
+              <a href="mailto:karigarcustomercare@gmail.com" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                <Mail className="w-4 h-4" />
+                <span className="text-sm">karigarcustomercare@gmail.com</span>
+              </a>
+            </div>
             
             {/* Stats with Animation */}
             <div className="flex gap-4 pt-2">
@@ -163,10 +164,8 @@ const Footer = () => {
             
             {/* Social Links with 3D Effect */}
             <div className="flex items-center gap-4">
-              {[
-                { icon: Facebook, href: 'https://facebook.com' },
-                { icon: Twitter, href: 'https://twitter.com' },
-                { icon: Instagram, href: 'https://instagram.com' }
+              {              [
+                { icon: Instagram, href: 'https://www.instagram.com/kaarigarhh?igsh=MWNkMmo5dWlvZTVmMw==' }
               ].map((social, idx) => (
                 <a
                   key={idx}

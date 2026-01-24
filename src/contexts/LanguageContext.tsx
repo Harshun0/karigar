@@ -20,6 +20,10 @@ const translations: Record<Language, Record<string, string>> = {
     "header.getStarted": "Get Started",
     "header.logout": "Logout",
     "header.profile": "Profile",
+    "nav.privacyPolicy": "Privacy Policy",
+    "nav.termsOfService": "Terms of Service",
+    "nav.refundPolicy": "Refund Policy",
+
     
     // Hero
     "hero.badge": "Trusted by 10,000+ households",
@@ -169,6 +173,8 @@ const translations: Record<Language, Record<string, string>> = {
     "booking.perDay": "Per Day",
     "booking.day": "day",
     "booking.days": "days",
+    "booking.payDirectly": "Pay Directly to labour",
+
     
     // Profile
     "profile.title": "Your Profile",
@@ -208,6 +214,10 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.howItWorks": "यह कैसे काम करता है",
     "nav.forWorkers": "कारीगरों के लिए",
     "header.login": "लॉग इन करें",
+    "nav.privacyPolicy": "गोपनीयता नीति",
+    "nav.termsOfService": "सेवा की शर्तें",
+    "nav.refundPolicy": "रिफंड नीति",
+
     "header.getStarted": "शुरू करें",
     
     // Hero
@@ -349,6 +359,8 @@ const translations: Record<Language, Record<string, string>> = {
     "booking.perDay": "प्रति दिन",
     "booking.day": "दिन",
     "booking.days": "दिन",
+    "booking.payDirectly": "सीधे कारीगर को भुगतान करें",
+
     
     // Footer
     "footer.description": "भारत भर में विश्वसनीय स्थानीय कुशल कारीगरों के साथ परिवारों को जोड़ना।",

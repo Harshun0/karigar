@@ -350,7 +350,7 @@ const BookingDialog = ({ open, onOpenChange, worker, onBookingSuccess }: Booking
               {t("booking.cancel") || "Cancel"}
             </Button>
             <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
-              {isLoading ? t("booking.booking") || "Booking..." : t("booking.confirmBooking") || "Confirm Booking"}
+              {t("booking.payDirectly") || "Pay Directly to labour"}
             </Button>
           </DialogFooter>
         </form>
